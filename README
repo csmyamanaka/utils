@@ -1,0 +1,11 @@
+Utility files for C projects
+"utils"
+M. Yamanaka
+email: myamanaka@live.com
+website: csmyamanaka.com
+license: MIT (See include "LICENSE" file for details)
+
+Description
+===========
+These are files that I wrote a really long time ago mostly for testing
+and to provide some utility for other projects.
