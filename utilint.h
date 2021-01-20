@@ -6,6 +6,7 @@ Because there are no namespaces in C, all functions have the prefix" ui_".
 
 #pragma once
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -69,7 +70,7 @@ void ui_printrect(int* aI0, int aI1, int aI2){
 int* ui_array(int aI0, int aI1){
   //ARGS: length of array, default value
   //RESULT: integer array with constant values
-  int* ret = malloc(sizeof(int)*a0);
+  int* ret = malloc(sizeof(int)*aI0);
   for(int it0 = 0; it0 < aI0; it0++) ret[it0] = aI1;
   return ret;
 }
@@ -78,7 +79,7 @@ int* ui_duplicate(int* aI0, int aI1){
   //ARGS: input array, length of array
   //RESULT: another instance of input array
   int* ret = malloc(sizeof(int)*aI1);
-  for(int it0 = 0; it0 < a1; it0++) ret[it0] = a0[it0];
+  for(int it0 = 0; it0 < aI1; it0++) ret[it0] = aI0[it0];
   return ret;
 }
 
@@ -86,10 +87,26 @@ int ui_nInst(int* aI0, int aI1, int aI2){
   //ARGS: input array, length of array, value of interest
   //RESULT: number of instances of said value
   int ret = 0;
-  for(int i = 0; i < a1; i++){
-    if(a0[i] == a2) ret++;
+  for(int i = 0; i < aI1; i++){
+    if(aI0[i] == aI2) ret++;
   }
   return ret;
+}
+
+int* ui_uniform(int aI0, int aI1, int aI2){
+  //ARGS: number of elements, lowest value, highest value
+  //RESULT: array of uniformly divided array given a range
+  int* ret = malloc(sizeof(int)*aI0);
+  float ddx = ((float)(aI2 - aI1))/aI0;
+  for(int i = 0; i < aI0; i++) ret[i] = aI1 + i*ddx;
+  return ret;
+}
+
+float ui_error(int* aI0, int* aI1, int aI2){
+  //ARGS: first array, second array, length of arrays
+  float ret = 0;
+  for(int i = 0; i < aI2; i++) ret += pow(aI0[i] - aI1[i], 2);
+  return sqrt(ret);
 }
 
 //PART 2: Discrete math utilities
